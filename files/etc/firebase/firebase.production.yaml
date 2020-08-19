@@ -1,0 +1,8 @@
+server:
+    port: ":8080"
+database:
+    master: "root:@tcp(localhost:3306)/test"
+firebase:
+    projectID: "fir-test-d2357"    
+api:
+    auth: "https://auth.jx-production/auth"
