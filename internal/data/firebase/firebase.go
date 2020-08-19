@@ -83,40 +83,35 @@ func (d Data) EditData(ctx context.Context, member firebaseEntity.Firebase) erro
 }
 
 // CariDanTampilHeaderByNoReceive ...
-func (d Data) CariDanTampilHeaderByNoReceive(ctx context.Context, NoReceive string) (pEntity.TranRCH, error) {
+func (d Data) CariDanTampilHeaderByNoReceive(ctx context.Context, NoReceive string) (pEntity.HeaderRC, error) {
 	var (
-		header pEntity.TranRCH
+		header pEntity.HeaderRC
 		err    error
 	)
 	fmt.Println("header : ", header)
 	fmt.Println("no receive", NoReceive)
 
 	doc, err := d.c.Collection("ReturTnIn/" + NoReceive + "/Header").Doc(NoReceive).Get(ctx)
-	//ReturTnIn/R20070001/Header/R20070001
-
 	if err != nil {
 		return header, errors.Wrap(err, "[DATA][CariDanTampilHeaderByNoReceive]")
 	}
-	fmt.Println("doc : ", doc)
-
 	err = doc.DataTo(&header)
 	if err != nil {
 		return header, errors.Wrap(err, "[DATA][CariDanTampilDetailByNoReceive]")
 	}
-	fmt.Println("header2 : ", header)
 
 	return header, err
 }
 
 // CariDanTampilDetailByNoReceive ...
-func (d Data) CariDanTampilDetailByNoReceive(ctx context.Context, NoReceive string) ([]pEntity.TranRCD, error) {
+func (d Data) CariDanTampilDetailByNoReceive(ctx context.Context, NoReceive string) ([]pEntity.DetailRC, error) {
 	var (
-		detail  pEntity.TranRCD
-		details []pEntity.TranRCD
+		detail  pEntity.DetailRC
+		details []pEntity.DetailRC
 		err     error
 	)
 
-	iter := d.c.Collection("ReturTnIn/" + NoReceive + "/Detail/").Documents(ctx)
+	iter := d.c.Collection("ReturTnIn/" + NoReceive + "/Detail").Documents(ctx)
 
 	for {
 		doc, err := iter.Next()
@@ -130,6 +125,7 @@ func (d Data) CariDanTampilDetailByNoReceive(ctx context.Context, NoReceive stri
 		if err != nil {
 			return details, errors.Wrap(err, "[DATA][CariDanTampilDetailByNoReceive] Failed to populate struct!")
 		}
+		fmt.Println("Detail", detail)
 		details = append(details, detail)
 	}
 	fmt.Println("detail : ", details)

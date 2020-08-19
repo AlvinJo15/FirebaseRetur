@@ -17,8 +17,8 @@ type Data interface {
 	InsertNewData(ctx context.Context, member firebaseEntity.Firebase) error
 	TampilSemuaData(ctx context.Context) ([]firebaseEntity.Firebase, error)
 	EditData(ctx context.Context, member firebaseEntity.Firebase) error
-	CariDanTampilHeaderByNoReceive(ctx context.Context, NoReceive string) (pEntity.TranRCH, error)
-	CariDanTampilDetailByNoReceive(ctx context.Context, NoReceive string) ([]pEntity.TranRCD, error)
+	CariDanTampilHeaderByNoReceive(ctx context.Context, NoReceive string) (pEntity.HeaderRC, error)
+	CariDanTampilDetailByNoReceive(ctx context.Context, NoReceive string) ([]pEntity.DetailRC, error)
 }
 
 // AuthData ...
@@ -149,6 +149,7 @@ func (s Service) TampilAllDataByNoReceive(ctx context.Context, NoReceive string)
 		dataReceive pEntity.JSONRC
 		err         error
 	)
+	
 	//Header
 	dataReceive.TranRCH, err = s.data.CariDanTampilHeaderByNoReceive(ctx, NoReceive)
 	if err != nil {

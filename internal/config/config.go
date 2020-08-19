@@ -77,7 +77,7 @@ func getDefaultConfigFile() string {
 
 	env := string(namespace)
 	if os.Getenv("GOPATH") == "" {
-		configPath = "files/etc/emember/firebase.development.yaml"
+		configPath = "files/etc/firebase/firebase.development.yaml"
 	}
 
 	if env != "" {
